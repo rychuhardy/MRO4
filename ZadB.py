@@ -1057,18 +1057,20 @@ np.array([358,453,300])
 
 data_points = preprocessing.scale(data_points)
 
-pca = PCA(n_components=1)
-reduced = pca.fit_transform(data_points[:,:2])
-# kpca = KernelPCA(n_components=1, kernel='rbf', gamma=15)
-# reduced = kpca.fit_transform(data_points[:,:2])
+# pca = PCA(n_components=1)
+# reduced = pca.fit_transform(data_points[:,:2])
+kpca = KernelPCA(n_components=1, kernel='rbf', gamma=10)
+reduced = kpca.fit_transform(data_points[:,:2])
 
 plt.figure(0)
 plt.scatter(data_points[:,0], data_points[:,1], c=data_points[:,2], cmap=cmap,
-                edgecolor='k', s=20)
+                edgecolor='k', s=15)
+plt.title('Input data')
 
 plt.figure(1)
 plt.scatter(reduced[:,0], np.zeros((len(reduced),1)), c=data_points[:,2], cmap=cmap,
                 edgecolor='k', s=20)
+plt.title('After reducing to 1D with rbf kernel PCA gamma=10')
 
 # print(pca.components_)
 # print(pca.explained_variance_)

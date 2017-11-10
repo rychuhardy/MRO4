@@ -1385,16 +1385,20 @@ np.array([9,437,3])
 
 
 
-# data_points = preprocessing.scale(data_points)
+data_points = preprocessing.scale(data_points)
 
-pca = PCA(n_components=1)
-reduced = pca.fit_transform(data_points[:,:2])
-# kpca = KernelPCA(n_components=1, kernel='rbf', gamma=15)
-# reduced = kpca.fit_transform(data_points[:,:2])
+# pca = PCA(n_components=1)
+# reduced = pca.fit_transform(data_points[:,:2])
+kpca = KernelPCA(n_components=1, kernel='rbf', gamma=4)
+reduced = kpca.fit_transform(data_points[:,:2])
 
-plt.figure(0)
+
+fig0 = plt.figure(0)
+ax = fig0.add_subplot(111)
+
 plt.scatter(data_points[:,0], data_points[:,1], c=data_points[:,2], cmap=cmap,
                 edgecolor='k', s=20)
+
 
 plt.figure(1)
 plt.scatter(reduced[:,0], np.zeros((len(reduced),1)), c=data_points[:,2], cmap=cmap,
@@ -1405,4 +1409,5 @@ plt.scatter(reduced[:,0], np.zeros((len(reduced),1)), c=data_points[:,2], cmap=c
 # print(pca.explained_variance_ratio_)
 # print(pca.singular_values_ )
 
+plt.draw()
 plt.show()
